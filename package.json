@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
+    "@vercel/speed-insights": "^2.1.1",
     "astro": "^5.18.2",
     "typescript": "^5.9.3"
   }
