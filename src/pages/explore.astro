@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import ValueGraph from '../components/ValueGraph/ValueGraph.astro';
+---
+
+<Base
+  title="Explore Valuable"
+  description="Ask Valuable questions about a demo Value Graph built on fictional ACME Corp data, and trace every answer through the seven lenses."
+  active="explore"
+  wide
+>
+  <div class="wrap wrap--wide explore">
+    <ValueGraph />
+    <p class="disclaimer">ACME Corp and every figure on this page are fictional. They show how Valuable reads a Value Graph; they are not real customer or employer data.</p>
+  </div>
+</Base>
+
+<style>
+  .explore { padding-top: 32px; padding-bottom: 56px; }
+  .disclaimer { margin: 24px 0 0; font-size: 13px; color: var(--muted); max-width: 720px; }
+</style>

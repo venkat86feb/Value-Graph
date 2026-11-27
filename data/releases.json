@@ -1,0 +1,16 @@
+{
+  "releases": [
+    {
+      "release": 0,
+      "title": "Introduction",
+      "article": "customer-value",
+      "status": "published"
+    },
+    {
+      "release": 1,
+      "title": "How are we doing against our KPIs?",
+      "article": null,
+      "status": "upcoming"
+    }
+  ]
+}
