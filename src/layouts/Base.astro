@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE } from '../site';
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
   title: string;
@@ -63,6 +64,7 @@ const year = new Date().getFullYear();
         </span>
       </div>
     </footer>
+    <SpeedInsights />
   </body>
 </html>
 
