@@ -1,0 +1,98 @@
+---
+import '../styles/global.css';
+import { SITE } from '../site';
+
+interface Props {
+  title: string;
+  description?: string;
+  active?: 'article' | 'articles' | 'explore';
+  wide?: boolean;
+}
+
+const { title, description = SITE.description, active, wide = false } = Astro.props;
+const pageTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <nav aria-label="Main" class:list={['wrap', 'site-nav', { 'wrap--wide': wide }]}>
+        <a href="/" class="brand">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true">
+            <circle cx="5" cy="13" r="4" fill="none" stroke="#0F5F58" stroke-width="2"></circle>
+            <circle cx="21" cy="5" r="3" fill="#0F5F58"></circle>
+            <circle cx="21" cy="21" r="3" fill="#C2410C"></circle>
+            <path d="M9 11 L18 6 M9 15 L18 20" stroke="#17191E" stroke-width="1.6"></path>
+          </svg>
+          {SITE.name}
+        </a>
+        <a href="/articles/" class="nav-link" aria-current={active === 'articles' || active === 'article' ? 'page' : undefined}>Articles</a>
+        <a href="/explore/" class="button nav-cta" aria-current={active === 'explore' ? 'page' : undefined}>Explore<span class="nav-cta__more"> Valuable</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class:list={['wrap', 'footer-row', { 'wrap--wide': wide }]}>
+        <span>© {year} {SITE.author} · Value Graph and Valuable</span>
+        <span class="footer-links">
+          {SITE.linkedin && <a href={SITE.linkedin} rel="me">LinkedIn</a>}
+          <a href="/explore/">Explore Valuable</a>
+        </span>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header { border-bottom: 1px solid var(--line); }
+  .site-nav {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;
+    padding-top: 14px; padding-bottom: 14px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px; margin-right: auto; min-height: 44px;
+    text-decoration: none; color: var(--ink);
+    font-family: var(--display); font-weight: 700; font-size: 20px;
+  }
+  .nav-link {
+    color: var(--ink); text-decoration: none; font-size: 15px; font-weight: 600;
+    min-height: 44px; display: inline-flex; align-items: center;
+  }
+  @media (max-width: 420px) {
+    .site-nav { gap: 12px 14px; }
+    .brand { font-size: 18px; }
+    .nav-cta { padding: 10px 14px; }
+    .nav-cta__more { display: none; }
+  }
+  .nav-link[aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+  .site-footer { border-top: 1px solid var(--line); margin-top: 24px; }
+  .footer-row {
+    padding-top: 28px; padding-bottom: 28px;
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+    font-size: 14px; color: var(--muted);
+  }
+  .footer-links { display: flex; gap: 20px; }
+</style>

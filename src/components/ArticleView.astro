@@ -1,0 +1,121 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import { SITE } from '../site';
+import { upcoming } from '../lib/releases';
+
+interface Props {
+  entry: CollectionEntry<'articles'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, kicker, author, date, release, linkedin } = entry.data;
+const dateText = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const next = upcoming[0];
+---
+
+<div class="wrap layout">
+  <article class="article">
+    <p class="eyebrow">{kicker}</p>
+    <h1 class="title">{title}</h1>
+    <p class="byline">
+      {author} · <time datetime={date.toISOString().slice(0, 10)}>{dateText}</time> ·
+      {linkedin ? <a href={linkedin}>First published on LinkedIn</a> : 'First published on LinkedIn'}
+    </p>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  <aside class="side" aria-label="More">
+    <div class="card side-card">
+      <h2>Try Valuable</h2>
+      <p>Ask questions of a demo Value Graph, click any card to trace it, and switch to the skills view.</p>
+      <a href={`/explore/?release=${release}`} class="button button--teal">Explore Valuable</a>
+    </div>
+    {next && (
+      <div class="next">
+        <span class="next__label">Coming next</span>
+        <span class="next__title">{next.title}</span>
+        <span class="next__text">How I used Valuable and the Value Graph to answer this for leaders and teams.</span>
+      </div>
+    )}
+    {SITE.linkedin && <a href={SITE.linkedin} class="follow" rel="me">Follow me on LinkedIn →</a>}
+  </aside>
+</div>
+
+<style>
+  .layout {
+    padding-top: 48px; padding-bottom: 64px;
+    display: flex; flex-wrap: wrap; gap: 48px 56px; align-items: flex-start;
+  }
+  @media (min-width: 640px) { .layout { padding-top: 64px; padding-bottom: 80px; } }
+  .article { flex: 999 1 560px; min-width: 0; max-width: 700px; }
+  .title {
+    margin: 0 0 20px; font-size: clamp(34px, 7vw, 52px); line-height: 1.06;
+    font-weight: 700; letter-spacing: -0.02em;
+  }
+  .byline { margin: 0 0 40px; font-size: 14px; color: var(--muted); }
+
+  .prose { font-family: var(--serif); font-size: 19px; line-height: 1.7; color: var(--ink-2); }
+  @media (max-width: 480px) { .prose { font-size: 18px; } }
+  .prose :global(p) { margin: 0 0 22px; }
+  .prose :global(ul), .prose :global(ol) { margin: 0 0 22px; padding-left: 24px; }
+  .prose :global(li) { margin-bottom: 10px; }
+  .prose :global(h2) {
+    margin: 48px 0 16px; font-size: 28px; line-height: 1.2; font-weight: 600; color: var(--ink);
+  }
+
+  /* The seven-lens chain diagram */
+  .prose :global(.lens-chain) {
+    margin: 8px 0 32px; background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 20px; font-family: var(--sans);
+  }
+  .prose :global(.lens-chain ol) {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  }
+  .prose :global(.lens-chain li) {
+    margin: 0; display: flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600; line-height: 1.3;
+  }
+  .prose :global(.lens-chain li span) {
+    padding: 8px 12px; border-radius: 99px; background: var(--teal-soft); color: var(--teal);
+  }
+  .prose :global(.lens-chain li.is-centre span) { background: var(--ink); color: #fff; }
+  .prose :global(.lens-chain li:not(:last-child)::after) {
+    content: '→'; color: var(--faint); font-weight: 400;
+  }
+  .prose :global(.lens-chain figcaption) { margin-top: 12px; font-size: 13px; color: var(--muted); }
+
+  /* "See it in action" call to action */
+  .prose :global(.cta) {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+    text-decoration: none; background: var(--ink); color: var(--paper);
+    border-radius: var(--radius); padding: 26px; margin: 8px 0 36px; font-family: var(--sans);
+  }
+  .prose :global(.cta:hover) { background: #000; color: var(--paper); }
+  .prose :global(.cta__text) { flex: 1 1 280px; }
+  .prose :global(.cta__text strong) { display: block; font-family: var(--display); font-size: 22px; font-weight: 600; }
+  .prose :global(.cta__text span) { display: block; font-size: 15px; color: #C9C7BF; margin-top: 4px; line-height: 1.5; }
+  .prose :global(.cta__button) {
+    background: var(--peach); color: var(--ink); padding: 13px 18px; border-radius: 8px;
+    font-weight: 600; font-size: 15px;
+  }
+
+  .side { flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  @media (min-width: 960px) { .side { position: sticky; top: 24px; } }
+  .side-card { display: flex; flex-direction: column; gap: 12px; }
+  .side-card h2 { margin: 0; font-size: 19px; font-weight: 600; }
+  .side-card p { margin: 0; font-size: 14px; color: var(--ink-3); line-height: 1.55; }
+  .side-card .button { align-self: flex-start; font-size: 14px; }
+  .next {
+    border: 1px dashed var(--line-2); border-radius: var(--radius); padding: 22px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .next__label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--orange); }
+  .next__title { font-family: var(--display); font-size: 18px; font-weight: 600; line-height: 1.3; }
+  .next__text { font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+  .follow { font-size: 14px; font-weight: 600; }
+</style>

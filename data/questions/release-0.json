@@ -1,0 +1,77 @@
+{
+  "release": 0,
+  "views": {
+    "value": {
+      "label": "Value view",
+      "note": "Answers read from the Value Graph.",
+      "questions": [
+        {
+          "id": "value-delivered",
+          "text": "How much value have we delivered so far?",
+          "highlight": ["i1", "d2", "d3", "o1", "o2", "c1", "u1", "n1", "n2", "g2", "g1"],
+          "answer": {
+            "text": "For ACME’s accounts payable clerks, invoices now reach the right approver first time more often: first-time-right routing rose from 62% to 81% after Approver suggestion was delivered. Business value is not yet known.",
+            "basis": "Investment: Invoice Automation team · 26 PI4 (640 hours) · Delivery: Approver suggestion, Exception triage agent · Value stream: 2 needs · Strategic: Customer satisfaction",
+            "gaps": "Exception resolution and customer satisfaction have no recorded figures. Unknown is never shown as zero."
+          }
+        },
+        {
+          "id": "value-leaking",
+          "text": "Where is value leaking for ACME?",
+          "highlight": ["i2", "d4", "o1", "c1", "u2", "n3", "g2"],
+          "answer": {
+            "text": "Clerks find the approver first time, but invoices still wait: approvers cannot approve on the go. Nothing delivered serves that need yet; Mobile approval is still in progress.",
+            "basis": "Value stream: Approve invoices on the go (gap) · User: Approver · Delivery: Mobile approval (in progress)",
+            "gaps": "Exception resolution has no outcome recorded, so leakage there cannot be judged yet."
+          }
+        },
+        {
+          "id": "hours-produced",
+          "text": "What did the hours invested produce?",
+          "highlight": ["i1", "i2", "i3", "d1", "d2", "d3", "d4"],
+          "answer": {
+            "text": "1,280 hours went in. 640 hours delivered two changes, one with a measured outcome; 160 hours mapped the value stream and found an unserved need; 480 hours are in progress on Mobile approval.",
+            "basis": "Investment: 3 team planning increments · Delivery: 4 items",
+            "gaps": "Hours are not yet converted to cost, so return on investment is not shown."
+          }
+        }
+      ]
+    },
+    "portfolio": {
+      "label": "Portfolio view (skills)",
+      "note": "Same graph, with the Investment lens grouped by the skills used.",
+      "questions": [
+        {
+          "id": "skills-value",
+          "text": "Which skills created this value?",
+          "highlight": ["k1", "k2", "k3", "d1", "d2", "o1", "c1", "u1", "n1", "n3", "g2", "g1"],
+          "answer": {
+            "text": "Approver suggestion, the only change with a measured outcome, drew on 160 hours of Product discovery and 240 hours of AI agent design. Value stream mapping (160 hours) found the unserved need for mobile approval.",
+            "basis": "Investment by skill: 3 skills · Delivery: Approver suggestion, Value stream mapping workshop · Value stream: 2 needs",
+            "gaps": "The same 1,280 hours as the value view, grouped by skill. Grouping never changes a figure."
+          }
+        },
+        {
+          "id": "skills-unmeasured",
+          "text": "Which skills have no measured result yet?",
+          "highlight": ["k3", "k4", "d3", "d4", "n2", "n3"],
+          "answer": {
+            "text": "Delivery coaching (360 hours) went into Mobile approval, still in progress. AI agent design also went into the Exception triage agent, which is delivered but has no outcome measured.",
+            "basis": "Investment by skill: Delivery coaching, AI agent design · Delivery: 2 items · Value stream: 2 needs",
+            "gaps": "Results will show once outcomes are recorded."
+          }
+        },
+        {
+          "id": "skills-backed",
+          "text": "Is every skill backed by real work?",
+          "highlight": ["k1", "k2", "k3", "k4", "d1", "d2", "d3", "d4"],
+          "answer": {
+            "text": "Yes. All four skills link to done, delivered or in-progress work. A skill with no linked work would show as claimed, not demonstrated.",
+            "basis": "Investment by skill: 4 skills · Delivery: 4 items",
+            "gaps": "None in this demo."
+          }
+        }
+      ]
+    }
+  }
+}

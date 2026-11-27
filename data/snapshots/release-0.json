@@ -1,0 +1,77 @@
+{
+  "release": 0,
+  "title": "Introduction",
+  "asOf": "2026-10-31",
+  "fictional": true,
+  "graphName": "ACME Corp, accounts payable",
+  "lenses": ["Investment", "Delivery", "Offering", "Customer", "User", "Value stream", "Strategic"],
+  "nodes": [
+    { "id": "i1", "lens": "Investment", "view": "value", "title": "Invoice Automation team · 26 PI4", "subtitle": "640 hours", "hours": 640, "addedIn": 0 },
+    { "id": "i2", "lens": "Investment", "view": "value", "title": "Invoice Automation team · 27 PI1", "subtitle": "480 hours", "hours": 480, "addedIn": 0 },
+    { "id": "i3", "lens": "Investment", "view": "value", "title": "Operational Excellence · 26 PI4", "subtitle": "160 hours", "hours": 160, "addedIn": 0 },
+
+    { "id": "k1", "lens": "Investment", "view": "portfolio", "title": "Value stream mapping", "subtitle": "160 hours", "hours": 160, "addedIn": 0 },
+    { "id": "k2", "lens": "Investment", "view": "portfolio", "title": "Product discovery", "subtitle": "240 hours", "hours": 240, "addedIn": 0 },
+    { "id": "k3", "lens": "Investment", "view": "portfolio", "title": "AI agent design", "subtitle": "520 hours", "hours": 520, "addedIn": 0 },
+    { "id": "k4", "lens": "Investment", "view": "portfolio", "title": "Delivery coaching", "subtitle": "360 hours", "hours": 360, "addedIn": 0 },
+
+    { "id": "d1", "lens": "Delivery", "title": "Value stream mapping workshop", "subtitle": "Activity · done · 160 hours", "hours": 160, "addedIn": 0 },
+    { "id": "d2", "lens": "Delivery", "title": "Approver suggestion", "subtitle": "Feature · delivered · 400 hours", "hours": 400, "addedIn": 0 },
+    { "id": "d3", "lens": "Delivery", "title": "Exception triage agent", "subtitle": "Epic · delivered · 240 hours", "hours": 240, "addedIn": 0 },
+    { "id": "d4", "lens": "Delivery", "title": "Mobile approval", "subtitle": "Feature · in progress · 480 hours", "hours": 480, "addedIn": 0 },
+
+    { "id": "o1", "lens": "Offering", "title": "Invoice approval", "subtitle": "Product", "addedIn": 0 },
+    { "id": "o2", "lens": "Offering", "title": "Exception handling", "subtitle": "Product", "addedIn": 0 },
+
+    { "id": "c1", "lens": "Customer", "title": "ACME Corp", "subtitle": "Fictional customer", "addedIn": 0 },
+
+    { "id": "u1", "lens": "User", "title": "Accounts payable clerk", "subtitle": "Role", "addedIn": 0 },
+    { "id": "u2", "lens": "User", "title": "Approver", "subtitle": "Role", "addedIn": 0 },
+
+    { "id": "n1", "lens": "Value stream", "title": "Route each invoice to the right approver first time", "subtitle": "First-time-right routing 62% → 81%", "addedIn": 0 },
+    { "id": "n2", "lens": "Value stream", "title": "Resolve invoice exceptions quickly", "subtitle": "Outcome not measured", "addedIn": 0 },
+    { "id": "n3", "lens": "Value stream", "title": "Approve invoices on the go", "subtitle": "Gap: nothing delivered serves it", "gap": true, "addedIn": 0 },
+
+    { "id": "g2", "lens": "Strategic", "title": "Customer satisfaction", "subtitle": "Goal · not yet measured", "addedIn": 0 },
+    { "id": "g1", "lens": "Strategic", "title": "Deliver outstanding value for customers", "subtitle": "Strategic pillar", "addedIn": 0 }
+  ],
+  "edges": [
+    { "from": "i1", "to": "d2", "hours": 400 },
+    { "from": "i1", "to": "d3", "hours": 240 },
+    { "from": "i2", "to": "d4", "hours": 480 },
+    { "from": "i3", "to": "d1", "hours": 160 },
+
+    { "from": "k1", "to": "d1", "hours": 160 },
+    { "from": "k2", "to": "d2", "hours": 160 },
+    { "from": "k3", "to": "d2", "hours": 240 },
+    { "from": "k3", "to": "d3", "hours": 240 },
+    { "from": "k2", "to": "d4", "hours": 80 },
+    { "from": "k3", "to": "d4", "hours": 40 },
+    { "from": "k4", "to": "d4", "hours": 360 },
+
+    { "from": "d1", "to": "o1" },
+    { "from": "d2", "to": "o1" },
+    { "from": "d4", "to": "o1" },
+    { "from": "d3", "to": "o2" },
+    { "from": "o1", "to": "c1" },
+    { "from": "o2", "to": "c1" },
+
+    { "from": "d2", "to": "n1" },
+    { "from": "d3", "to": "n2" },
+    { "from": "d4", "to": "n3" },
+    { "from": "d1", "to": "n3", "kind": "identified" },
+
+    { "from": "n1", "to": "u1" },
+    { "from": "n2", "to": "u1" },
+    { "from": "n3", "to": "u2" },
+
+    { "from": "n1", "to": "g2" },
+    { "from": "n2", "to": "g2" },
+    { "from": "n3", "to": "g2" },
+    { "from": "g2", "to": "g1" }
+  ],
+  "footNotes": {
+    "value": "Investment shows team hours by planning increment.",
+    "portfolio": "Investment shows the same 1,280 hours grouped by skill. A skill appears only when it is linked to work."
+  }
+}

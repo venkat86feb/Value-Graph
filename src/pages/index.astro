@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ArticleView from '../components/ArticleView.astro';
+
+// The home page is the introduction article (article 0).
+const articles = await getCollection('articles', ({ data }) => !data.draft);
+const intro = articles.find((a) => a.data.number === 0);
+if (!intro) throw new Error('Article 0 is missing from content/articles');
+---
+
+<Base title={intro.data.title} description={intro.data.description} active="article">
+  <ArticleView entry={intro} />
+</Base>
